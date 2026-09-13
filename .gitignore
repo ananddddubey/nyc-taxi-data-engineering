@@ -1,0 +1,9 @@
+data/raw/
+data/lake/
+data/audit/
+*.parquet
+__pycache__/
+*.pyc
+.venv/
+.env
+.ipynb_checkpoints/

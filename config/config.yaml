@@ -1,0 +1,48 @@
+# NYC Taxi Data Engineering Platform - Config
+paths:
+  raw_dir: "data/raw"                # where kagglehub-downloaded files land (or a symlink to them)
+  zone_lookup: "data/taxi_zone_lookup.csv"
+  bronze_dir: "data/lake/bronze/yellow_taxi"
+  silver_dir: "data/lake/silver/yellow_taxi"
+  silver_rejected_dir: "data/lake/silver/rejected"
+  gold_dir: "data/lake/gold"
+  audit_log: "data/audit/etl_audit.parquet"
+
+kaggle:
+  dataset_slug: "dhruvildave/new-york-city-taxi-trips-2019"
+
+spark:
+  app_name: "nyc-taxi-pipeline"
+  shuffle_partitions: 8   # bump this up once you move to a real cluster / bigger machine
+
+postgres:
+  host: "localhost"
+  port: 5432
+  db: "nyc_taxi"
+  user: "postgres"
+  password: "postgres"
+  schema: "public"
+
+processing:
+  # column mapping: Kaggle CSVs for this dataset vary slightly in casing/naming
+  # across months. List every alias you find; ingest.py normalizes to the
+  # canonical (right-hand) name via a case-insensitive match.
+  column_aliases:
+    vendorid: "vendor_id"
+    tpep_pickup_datetime: "pickup_datetime"
+    tpep_dropoff_datetime: "dropoff_datetime"
+    passenger_count: "passenger_count"
+    trip_distance: "trip_distance"
+    pulocationid: "pu_location_id"
+    dolocationid: "do_location_id"
+    ratecodeid: "rate_code_id"
+    store_and_fwd_flag: "store_and_fwd_flag"
+    payment_type: "payment_type"
+    fare_amount: "fare_amount"
+    extra: "extra"
+    mta_tax: "mta_tax"
+    improvement_surcharge: "improvement_surcharge"
+    tip_amount: "tip_amount"
+    tolls_amount: "tolls_amount"
+    total_amount: "total_amount"
+    congestion_surcharge: "congestion_surcharge"   # absent in some 2019 months -> nullable
