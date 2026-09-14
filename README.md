@@ -31,7 +31,7 @@ pip install -r requirements.txt
 ### 1. Download the data (run locally — not in a network-sandboxed environment)
 
 ```bash
-python src/ingestion/ingest.py
+python -m src.ingestion.ingest
 ```
 
 This pulls the Kaggle dataset via `kagglehub` (needs `kaggle.json` credentials
